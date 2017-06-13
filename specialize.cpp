@@ -1,25 +1,32 @@
 #include <iostream>
 
 template <class T, class U>
-struct Widget {
-	void Fun()
+struct Widget
+{
+	void Foo()
 	{
-		std::cout << "Generic impl\n";
+		std::cout << "Foo: Generic impl\n";
+	}
+	void Bar()
+	{
+		std::cout << "Bar: Generic impl\n";
 	}
 };
 
-template <class T>
+template <>
 void
-Widget<int, T>::Fun()
+Widget<int, int>::Foo()
 {
-	std::cout << "Specialized impl\n";
+	std::cout << "Foo: Specialized impl\n";
 }
 
 int
 main()
 {
 	Widget<double, int> w1;
-	w1.Fun();
+	w1.Foo();
+	w1.Bar();
 	Widget<int, int> w2;
-	w2.Fun();
+	w2.Foo();
+	w2.Bar();
 }
