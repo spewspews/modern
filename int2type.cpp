@@ -25,6 +25,28 @@ private:
 	}
 };
 
+template <class T, int which>
+struct Foo1
+{
+	void operator()(T* ptr)
+	{
+		doIt(ptr, std::integral_constant<int, which>());
+	}
+private:
+	void
+	doIt(T* ptr, std::integral_constant<int, 0>)
+	{
+		ptr->bar();
+		std::cout << "foo1 doIt for " << 0 << '\n';
+	}
+	void
+	doIt(T* ptr, std::integral_constant<int, 1>)
+	{
+		ptr->baz();
+		std::cout << "foo1 doIt for " << 1 << '\n';
+	}
+};
+
 struct Bar {
 	void
 	bar()
@@ -48,5 +70,8 @@ main()
 	foo(new Bar);
 	Foo<Baz, 1> anotherfoo;
 	anotherfoo(new Baz);
+
+	Foo1<Bar, 0> foo1;
+	foo1(new Bar);
 	return 0;
 }
