@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ls *.cpp | awk -F. '
+	BEGIN{printf "CLEANFILES="}
+	{printf "\\\n%s", $1}
+	END{printf "\n"}' > cleanfiles
